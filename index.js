@@ -6,40 +6,50 @@
 });*/
 
 //scroll all cta buttons to contact form
-const scrollButtons = document.querySelectorAll(".btn-scroll");
-const contactSection = document.querySelector("#contact");
+document.addEventListener("DOMContentLoaded", () => {
 
-scrollButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        contactSection.scrollIntoView({ behavior: "smooth" });
-    }); 
-});
+  // Scroll all CTA buttons to contact section
+  const scrollButtons = document.querySelectorAll(".btn-scroll");
+  const contactSection = document.querySelector(".contact");
 
-
-//handle form submission
-const form = document.querySelector(".contact form");
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    alert("Message sent! We'll get back to you .");
-    form.reset();
-}); 
-
-
-
-//reveal sections on scroll
-const sections = document.querySelectorAll("section");
-const revealSection = () => {
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const triggerPoint = window.innerHeight - 100; // 100px before the section comes into view
-        if (sectionTop < triggerPoint) {
-            section.classList.add("visible");
-        }
+  if (contactSection) {
+    scrollButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        contactSection.scrollIntoView({
+          behavior: "smooth"
+        });
+      });
     });
-};
+  } else {
+    console.error("Contact section not found");
+  }
 
-window.addEventListener("scroll", revealSection);
+  // Handle contact form submission
+  const form = document.querySelector(".contact form");
 
-//initial call to reveal sections that are already in view
-revealSection();
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Message sent! We'll get back to you.");
+      form.reset();
+    });
+  }
+
+  // Reveal sections on scroll
+  const sections = document.querySelectorAll("section");
+
+  const revealSection = () => {
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight - 100;
+
+      if (sectionTop < triggerPoint) {
+        section.classList.add("visible");
+      }
+    });
+  };
+
+  window.addEventListener("scroll", revealSection);
+  revealSection();
+
+});
